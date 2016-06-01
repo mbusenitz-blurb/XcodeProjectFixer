@@ -33,7 +33,7 @@ int main(int argc, const char * argv[]) {
         [group addFramework:frameworkDefinition toTargets:[project targets]];
         
         // add Crashlytics.framework
-        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:[libDir stringByAppendingString:@"Crashlytics.framework"]copyToDestination:NO];
+        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:[libDir stringByAppendingString:@"/Crashlytics.framework"]copyToDestination:NO];
         [group addFramework:frameworkDefinition toTargets:[project targets]];
         
         // add Security.framework
