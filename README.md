@@ -1,7 +1,15 @@
-This is using the XcodeEditor xcode project with a added target called 'XcoceProjectFixer'. To build open the 
-project 'lib/XcodeEditor/XcodeEditor.xcodeproj', select the 'XcoceProjectFixer' target and build. Then click on the 'Products' group to see the executable.  
+### overview
+This is using the XcodeEditor xcode project with an added target called `XcoceProjectFixer`. 
 
-Depenendency: https://github.com/appsquickly/XcodeEditor.git
+### build
+To build open the 
+project `lib/XcodeEditor/XcodeEditor.xcodeproj`, select the `XcoceProjectFixer` target and build.  Click on the `Products` group to see the executable.
 
+### depenendencies
+[XcodeEditor](https://github.com/appsquickly/XcodeEditor.git)
+
+to update run:
+```
 git remote add lib/XcodeEditor https://github.com/appsquickly/XcodeEditor.git
 git subtree pull -P lib/XcodeEditor lib/XcodeEditor master --squash
+```
