@@ -14,14 +14,14 @@ int main(int argc, const char * argv[]) {
         
         if (argc != 2)
         {
-            NSLog( @"usage: XcodeProjectFixer path/to/repository/root" );
+            NSLog( @"usage: XcodeProjectFixer path/to/repository/root/" );
             return 1;
         }
         
         NSString * repositoryRoot = [[NSString alloc] initWithUTF8String:argv[1] ];
-        NSString * projectDir = [repositoryRoot stringByAppendingString:@"build/app/BookWright.xcodeproj" ];
-        NSString * libDir = [repositoryRoot stringByAppendingString:@"lib" ];
-        NSString * scriptPath = [repositoryRoot stringByAppendingString: @"tools/mac/FabricScript" ];
+        NSString * projectDir = [repositoryRoot stringByAppendingString:@"/build/app/BookWright.xcodeproj" ];
+        NSString * libDir = [repositoryRoot stringByAppendingString:@"/lib" ];
+        NSString * scriptPath = [repositoryRoot stringByAppendingString: @"/tools/mac/FabricScript" ];
         
         // open project and frameworks group
         XCProject* project = [[XCProject alloc] initWithFilePath:projectDir ];
