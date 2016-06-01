@@ -7,6 +7,7 @@ project `lib/XcodeEditor/XcodeEditor.xcodeproj`, select the `XcoceProjectFixer` 
 
 ### depenendencies
 [XcodeEditor](https://github.com/appsquickly/XcodeEditor.git)
+
 to update run:
 ```
 git remote add lib/XcodeEditor https://github.com/appsquickly/XcodeEditor.git
