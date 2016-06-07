@@ -19,30 +19,13 @@ int main(int argc, const char * argv[]) {
         }
         
         NSString * repositoryRoot = [[NSString alloc] initWithUTF8String:argv[1] ];
-        NSString * projectDir = [repositoryRoot stringByAppendingString:@"/build/app/BookWright.xcodeproj" ];
+        NSString * buildDir = [repositoryRoot stringByAppendingString:@"/build/app"];
+        NSString * projectDir = [buildDir stringByAppendingString:@"/BookWright.xcodeproj" ];
         NSString * libDir = [repositoryRoot stringByAppendingString:@"/lib" ];
         NSString * scriptPath = [repositoryRoot stringByAppendingString: @"/tools/mac/FabricScript" ];
         
         // open project and frameworks group
         XCProject* project = [[XCProject alloc] initWithFilePath:projectDir ];
-        XCGroup* group = [project groupWithDisplayName:@"Frameworks"];
-        
-        // add Fabric.framework
-        XCFrameworkDefinition* frameworkDefinition =
-        [[XCFrameworkDefinition alloc] initWithFilePath:[libDir stringByAppendingString:@"/Fabric.framework"] copyToDestination:NO];
-        [group addFramework:frameworkDefinition toTargets:[project targets]];
-        
-        // add Crashlytics.framework
-        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:[libDir stringByAppendingString:@"/Crashlytics.framework"]copyToDestination:NO];
-        [group addFramework:frameworkDefinition toTargets:[project targets]];
-        
-        // add Security.framework
-        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:@"Security.framework" copyToDestination:NO];
-        [group addFramework:frameworkDefinition toTargets:[project targets]];
-        
-        // add SystemConfiguration.framework
-        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:@"SystemConfiguration.framework" copyToDestination:NO];
-        [group addFramework:frameworkDefinition toTargets:[project targets]];
         
         // append run phase script
         NSData * data = [[NSFileManager defaultManager] contentsAtPath: scriptPath ];
@@ -54,8 +37,18 @@ int main(int argc, const char * argv[]) {
                                                                           runOnlyForDeploymentPostprocessing:NO
                                                                                                    shellPath:libDir
                                                                                                  shellScript:content ];
-        XCTarget* examples = [project targetWithName:@"BookWright"];
-        [examples makeAndAddShellScript:script ];
+        XCTarget* target = [project targetWithName:@"BookWright"];
+        [target makeAndAddShellScript:script ];
+
+        XCGroup* frameworks = [project groupWithDisplayName:@"Frameworks"];
+        
+        // add Crashlytics.framework
+        XCFrameworkDefinition* frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:[buildDir stringByAppendingString:@"/Crashlytics.framework"]copyToDestination:NO];
+        [frameworks addFramework:frameworkDefinition toTargets:[project targets]];
+        
+        // add Fabric.framework
+        frameworkDefinition = [[XCFrameworkDefinition alloc] initWithFilePath:[buildDir stringByAppendingString:@"/Fabric.framework"]copyToDestination:NO];
+        [frameworks addFramework:frameworkDefinition toTargets:[project targets]];
         
         // done
         [project save];
